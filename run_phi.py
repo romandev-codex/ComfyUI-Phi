@@ -33,7 +33,7 @@ class RunPhi:
                     "default": False
                 }),
                 "do_sample": ("BOOLEAN", {
-                    "default": False
+                    "default": True
                 }),
                 "temperature": ("FLOAT", {
                     "default": 0.5,
@@ -41,7 +41,7 @@ class RunPhi:
                     "step": 0.01
                 }),
                 "max_new_tokens": ("INT", {
-                    "default": 500,
+                    "default": 2048,
                     "min": 1
                 }),
                 "seed": ("INT", {

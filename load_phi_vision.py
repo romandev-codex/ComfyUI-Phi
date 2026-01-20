@@ -22,10 +22,10 @@ class LoadPhiVision:
         return {
             "required": {
                 "model": (
-                    ["Phi-3.5-vision-instruct"],
+                    ["microsoft/Phi-3.5-vision-instruct"],
                     {
-                        "default": "Phi-3.5-vision-instruct",
-                        "tooltip": "The name of the model to load."
+                        "default": "microsoft/Phi-3.5-vision-instruct",
+                        "tooltip": "Model repo."
                     }
                 ),
             },
@@ -41,7 +41,7 @@ class LoadPhiVision:
                     ["eager", "flash_attention_2"],
                     {
                         "default": "eager",
-                        "tooltip": "Attention mecanism. Flash Attention should be faster."
+                        "tooltip": "Attention mechanism. Flash Attention should be faster."
                     }
                 )
             }
@@ -54,18 +54,18 @@ class LoadPhiVision:
 
         phi_model = AutoModelForCausalLM.from_pretrained(
             model_path,
-            local_files_only=True,
+            local_files_only=False,
             device_map="cuda",
             torch_dtype=dtype,
-            trust_remote_code=True,
+            trust_remote_code=False,
             _attn_implementation=attention
         )
 
         # For best performance, use num_crops=4 for multi-frame, num_crops=16 for single-frame.
         phi_processor = AutoProcessor.from_pretrained(
             model_path,
-            local_files_only=True,
-            trust_remote_code=True,
+            local_files_only=False,
+            trust_remote_code=False,
             num_crops=16
         )
 

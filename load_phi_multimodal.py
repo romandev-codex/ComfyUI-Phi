@@ -22,10 +22,10 @@ class LoadPhiMultimodal:
         return {
             "required": {
                 "model": (
-                    ["Phi-4-multimodal-instruct"],
+                    ["microsoft/Phi-4-multimodal-instruct"],
                     {
-                        "default": "Phi-4-multimodal-instruct",
-                        "tooltip": "The name of the model to load."
+                        "default": "microsoft/Phi-4-multimodal-instruct",
+                        "tooltip": "Model repo."
                     }
                 ),
             }
@@ -38,10 +38,10 @@ class LoadPhiMultimodal:
 
         phi_model = AutoModelForCausalLM.from_pretrained(
             model_path,
-            local_files_only=True,
+            local_files_only=False,
             device_map="cuda",
             torch_dtype="auto",
-            trust_remote_code=True,
+            trust_remote_code=False,
             # if you do not use Ampere or later GPUs, change attention to "eager"
             _attn_implementation='flash_attention_2',
         ).cuda()
@@ -49,8 +49,8 @@ class LoadPhiMultimodal:
         # For best performance, use num_crops=4 for multi-frame, num_crops=16 for single-frame.
         phi_processor = AutoProcessor.from_pretrained(
             model_path,
-            local_files_only=True,
-            trust_remote_code=True
+            local_files_only=False,
+            trust_remote_code=False
         )
 
         # Load generation config

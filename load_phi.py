@@ -22,10 +22,10 @@ class LoadPhi:
         return {
             "required": {
                 "model": (
-                    ["Phi-3.5-mini-instruct"],
+                    ["microsoft/Phi-3.5-mini-instruct"],
                     {
-                        "default": "Phi-3.5-mini-instruct",
-                        "tooltip": "The name of the model to load."
+                        "default": "microsoft/Phi-3.5-mini-instruct",
+                        "tooltip": "Model repo."
                     }
                 ),
             }
@@ -38,16 +38,16 @@ class LoadPhi:
 
         phi_model = AutoModelForCausalLM.from_pretrained(
             model_path,
-            local_files_only=True,
+            local_files_only=False,
             device_map="cuda",
             torch_dtype="auto",
-            trust_remote_code=True
+            trust_remote_code=False
         )
 
         phi_tokenizer = AutoTokenizer.from_pretrained(
             model_path,
-            local_files_only=True,
-            trust_remote_code=True
+            local_files_only=False,
+            trust_remote_code=False
         )
 
         return (phi_model, phi_tokenizer)

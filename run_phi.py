@@ -1,4 +1,5 @@
 from transformers import pipeline
+import torch
 
 
 class RunPhi:
@@ -43,10 +44,18 @@ class RunPhi:
                     "default": 500,
                     "min": 1
                 }),
+                "seed": ("INT", {
+                    "default": 0,
+                    "min": 0,
+                    "max": 0xffffffffffffffff
+                }),
             }
         }
 
-    def execute(self, phi_model, phi_tokenizer, system_message, instruction, return_full_text, do_sample, temperature, max_new_tokens):
+    def execute(self, phi_model, phi_tokenizer, system_message, instruction, return_full_text, do_sample, temperature, max_new_tokens, seed):
+        # Set seed for reproducibility
+        torch.manual_seed(seed)
+        
         # Prepare messages
         messages = [ 
             {"role": "system", "content": system_message},

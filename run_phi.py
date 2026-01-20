@@ -57,10 +57,10 @@ class RunPhi:
         torch.manual_seed(seed)
         
         # Prepare messages
-        messages = [ 
-            {"role": "system", "content": system_message},
-            {"role": "user", "content": instruction}
-        ] 
+        messages = []
+        if system_message and system_message.strip():
+            messages.append({"role": "system", "content": system_message})
+        messages.append({"role": "user", "content": instruction})
 
         # Build pipeline
         pipe = pipeline("text-generation", model=phi_model, tokenizer=phi_tokenizer)
